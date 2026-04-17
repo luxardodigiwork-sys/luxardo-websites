@@ -1,0 +1,121 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "phone": { "type": "string" },
+        "country": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "isPrimeMember": { "type": "boolean" },
+        "membershipActivation": { "type": "string" },
+        "membershipExpiry": { "type": "string" },
+        "role": { "type": "string", "enum": ["admin", "user"] }
+      },
+      "required": ["id", "email", "isPrimeMember"]
+    },
+    "Product": {
+      "title": "Product",
+      "description": "Product information",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "price": { "type": "number" },
+        "category": { "type": "string" },
+        "image": { "type": "string" },
+        "description": { "type": "string" },
+        "lowStockThreshold": { "type": "number" }
+      },
+      "required": ["id", "name", "price", "category", "image"]
+    },
+    "Collection": {
+      "title": "Collection",
+      "description": "Collection information",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "fullName": { "type": "string" },
+        "shortName": { "type": "string" },
+        "descriptor": { "type": "string" },
+        "image": { "type": "string" },
+        "narrative": { "type": "string" },
+        "craftsmanship": { "type": "string" },
+        "packaging": { "type": "string" }
+      },
+      "required": ["id", "fullName", "shortName", "image"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Customer order information",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "items": { "type": "array" },
+        "total": { "type": "number" },
+        "status": { "type": "string", "enum": ["pending", "processing", "shipped", "delivered", "cancelled"] },
+        "createdAt": { "type": "string" },
+        "shippingAddress": { "type": "object" }
+      },
+      "required": ["id", "userId", "items", "total", "status", "createdAt"]
+    },
+    "BespokeRequest": {
+      "title": "BespokeRequest",
+      "description": "Request for bespoke tailoring",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "details": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "reviewed", "scheduled", "completed"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "details", "status", "createdAt"]
+    },
+    "StyleConsultation": {
+      "title": "StyleConsultation",
+      "description": "Request for a style consultation",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "date": { "type": "string" },
+        "time": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "scheduled", "completed", "cancelled"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "date", "time", "status", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "/products/{productId}": {
+      "schema": "Product",
+      "description": "Product catalog"
+    },
+    "/collections/{collectionId}": {
+      "schema": "Collection",
+      "description": "Collections information"
+    },
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Customer orders"
+    },
+    "/bespoke_requests/{requestId}": {
+      "schema": "BespokeRequest",
+      "description": "Bespoke tailoring requests"
+    },
+    "/style_consultations/{consultationId}": {
+      "schema": "StyleConsultation",
+      "description": "Style consultation bookings"
+    }
+  }
+}
